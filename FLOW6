@@ -1,0 +1,858 @@
+[
+    {
+        "id": "b5039a4eba53c401",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "06ab2d4a1329585c",
+        "type": "inject",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "40",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 380,
+        "wires": [
+            [
+                "6af2bf929c4a772d",
+                "691e5ff13329de29"
+            ]
+        ]
+    },
+    {
+        "id": "6af2bf929c4a772d",
+        "type": "http request",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.openweathermap.org/data/2.5/onecall?lat=19.2748389&lon=-99.1536118&exclude=hourly,daily&appid=d781fbfcef709c7f3cbcb84e4b25587b&units=metric",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 350,
+        "y": 380,
+        "wires": [
+            [
+                "a872f86cf595db41"
+            ]
+        ]
+    },
+    {
+        "id": "a872f86cf595db41",
+        "type": "json",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [
+                "25ed99b7770a7ff1",
+                "89c62fa6bce8508e",
+                "f405ec4c0b8d0421"
+            ]
+        ]
+    },
+    {
+        "id": "25ed99b7770a7ff1",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "Temperatura",
+        "func": "msg.payload=msg.payload.current.temp;\nglobal.set(\"tempFlow5\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 320,
+        "wires": [
+            [
+                "6110eb81aea5d4c6"
+            ]
+        ]
+    },
+    {
+        "id": "89c62fa6bce8508e",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "humedad",
+        "func": "msg.payload=msg.payload.current.humidity;\nglobal.set(\"humFlow5\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 380,
+        "wires": [
+            [
+                "5e600f178de1afc7"
+            ]
+        ]
+    },
+    {
+        "id": "6110eb81aea5d4c6",
+        "type": "ui_gauge",
+        "z": "b5039a4eba53c401",
+        "name": "Temp Tlalpan CDMX",
+        "group": "329129c4499f7429",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura Tlalpan CDMX",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 860,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5e600f178de1afc7",
+        "type": "ui_gauge",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "329129c4499f7429",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humedad Tlalpan CDMX",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#edd400",
+            "#73d216",
+            "#3465a4"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 870,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1486770b771918f7",
+        "type": "comment",
+        "z": "b5039a4eba53c401",
+        "name": "Solicitud API",
+        "info": "",
+        "x": 190,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d6310296630d88fc",
+        "type": "mqtt in",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "topic": "codigoIoT/G8/mosquitto/flow5",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "dfd993e9731ae145",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 820,
+        "wires": [
+            [
+                "31f9a349d119a623"
+            ]
+        ]
+    },
+    {
+        "id": "0f0698b9cabe4d56",
+        "type": "comment",
+        "z": "b5039a4eba53c401",
+        "name": "Informacion general",
+        "info": "",
+        "x": 190,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "31f9a349d119a623",
+        "type": "json",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 820,
+        "wires": [
+            [
+                "89c7206bb3934826",
+                "e8ee31169a7d7297",
+                "bd6c359e08249be3",
+                "6d3d3c26009b6f16"
+            ]
+        ]
+    },
+    {
+        "id": "89c7206bb3934826",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "func": "msg.topic=msg.payload.id;\nmsg.payload=msg.payload.temp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 800,
+        "wires": [
+            [
+                "94851e260e8979d7"
+            ]
+        ]
+    },
+    {
+        "id": "e8ee31169a7d7297",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "func": "msg.topic=msg.payload.id;\nmsg.payload=msg.payload.hum;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 860,
+        "wires": [
+            [
+                "8c6f49f0227dc6f8"
+            ]
+        ]
+    },
+    {
+        "id": "94851e260e8979d7",
+        "type": "ui_chart",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "3682f5908e9e5c61",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatura Tlalpan CDMX",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 880,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c6f49f0227dc6f8",
+        "type": "ui_chart",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "3682f5908e9e5c61",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Humedad Tlalpan CDMX",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 870,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6bfbd0c754895f41",
+        "type": "comment",
+        "z": "b5039a4eba53c401",
+        "name": "Enviador",
+        "info": "",
+        "x": 200,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "5d6a64a6b361d8c3",
+        "type": "inject",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "50",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 1000,
+        "wires": [
+            [
+                "433f076a48df121c"
+            ]
+        ]
+    },
+    {
+        "id": "433f076a48df121c",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "func": "msg.payload = '{\"id\":\"DavidZ, Tlalpan, CDMX\",\"temp\":'+global.get (\"tempFlow5\")+',\"hum\":'+global.get (\"humFlow5\") + ',\"uvi\":' + global.get (\"uviFlow5\") + ',\"aqi\":' + global.get (\"aqiFlow5\") + '}';\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1000,
+        "wires": [
+            [
+                "7923294232eaf6f8",
+                "28d8b09c68e306af"
+            ]
+        ]
+    },
+    {
+        "id": "7923294232eaf6f8",
+        "type": "mqtt out",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "topic": "codigoIoT/G8/mosquitto/flow5",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dfd993e9731ae145",
+        "x": 670,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "28d8b09c68e306af",
+        "type": "debug",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "d144c0a42423a22c",
+        "type": "inject",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "0731a4239ba1011e"
+            ]
+        ]
+    },
+    {
+        "id": "0731a4239ba1011e",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "func": "var date = new Date (msg.payload); //creamos un objeto a partir del payload enviado por timestamp\nmsg.payload=date.toString();\n//cambiamos el payload para que sea una fecha con formato\nreturn msg;\n//regresa el mensaje para que se envie al siguiente nodo",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "a24eb820b9da506a"
+            ]
+        ]
+    },
+    {
+        "id": "a24eb820b9da506a",
+        "type": "ui_text",
+        "z": "b5039a4eba53c401",
+        "group": "329129c4499f7429",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 650,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f405ec4c0b8d0421",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "UV",
+        "func": "msg.payload=msg.payload.current.uvi;\nglobal.set(\"uviFlow5\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 440,
+        "wires": [
+            [
+                "e2f768febff47e79"
+            ]
+        ]
+    },
+    {
+        "id": "b3319d5c55c651c6",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "AQI",
+        "func": "msg.payload=msg.payload.list[0].main.aqi;\nglobal.set(\"aqiFlow5\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 500,
+        "wires": [
+            [
+                "a8f20525b76fb3e7"
+            ]
+        ]
+    },
+    {
+        "id": "e2f768febff47e79",
+        "type": "ui_gauge",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "329129c4499f7429",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "UV",
+        "label": "UV",
+        "format": "{{value}}",
+        "min": "0",
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "5",
+        "seg2": "7",
+        "className": "",
+        "x": 810,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a8f20525b76fb3e7",
+        "type": "ui_gauge",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "329129c4499f7429",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "AQI",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "5",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "2",
+        "seg2": "3",
+        "className": "",
+        "x": 810,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "691e5ff13329de29",
+        "type": "http request",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.openweathermap.org/data/2.5/air_pollution?lat=19.2748389&lon=-99.1536118&exclude=hourly,daily&appid=d781fbfcef709c7f3cbcb84e4b25587b&units",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 350,
+        "y": 440,
+        "wires": [
+            [
+                "9c65dcf1a299eb75"
+            ]
+        ]
+    },
+    {
+        "id": "9c65dcf1a299eb75",
+        "type": "json",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 510,
+        "y": 500,
+        "wires": [
+            [
+                "108f9dce66cd320f",
+                "b3319d5c55c651c6"
+            ]
+        ]
+    },
+    {
+        "id": "108f9dce66cd320f",
+        "type": "debug",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "bd6c359e08249be3",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "func": "msg.topic=msg.payload.id;\nmsg.payload=msg.payload.uvi;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 900,
+        "wires": [
+            [
+                "da253016db5f9fec"
+            ]
+        ]
+    },
+    {
+        "id": "6d3d3c26009b6f16",
+        "type": "function",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "func": "msg.topic=msg.payload.id;\nmsg.payload=msg.payload.aqi;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 940,
+        "wires": [
+            [
+                "3420cd0b2bf6ce73"
+            ]
+        ]
+    },
+    {
+        "id": "da253016db5f9fec",
+        "type": "ui_chart",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "a423738c7b4107b8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "UV Tlalpan CDMX",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3420cd0b2bf6ce73",
+        "type": "ui_chart",
+        "z": "b5039a4eba53c401",
+        "name": "",
+        "group": "a423738c7b4107b8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "AQI Tlalpan CDMX",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 850,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "329129c4499f7429",
+        "type": "ui_group",
+        "name": "Medidores",
+        "tab": "bc1629404651832f",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "dfd993e9731ae145",
+        "type": "mqtt-broker",
+        "name": "hivemq",
+        "broker": "3.73.26.18",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3682f5908e9e5c61",
+        "type": "ui_group",
+        "name": "Graficas 1",
+        "tab": "bc1629404651832f",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a423738c7b4107b8",
+        "type": "ui_group",
+        "name": "Graficas 2",
+        "tab": "bc1629404651832f",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bc1629404651832f",
+        "type": "ui_tab",
+        "name": "Flow 6",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    }
+]
